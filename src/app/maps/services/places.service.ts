@@ -5,5 +5,33 @@ import { Injectable } from '@angular/core';
 })
 export class PlacesService {
 
-  constructor() { }
+  public useLocation?: [number, number]; 
+
+  get isUserLocationReady (): boolean {
+    return !!this.useLocation;
+  }
+
+  constructor() { 
+    this.getUserLocation();
+  }
+
+  public async getUserLocation (): Promise<[number, number]> {
+    return new Promise((resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition (
+        ({coords}) => {
+          this.useLocation = [coords.longitude, coords.latitude];
+          resolve(this.useLocation);
+        },
+        (err) =>{
+          alert ('No se pudo obtner la geo')
+          console.log(err);
+          reject();
+        }
+
+      );
+
+    });
+
+  }
 }
