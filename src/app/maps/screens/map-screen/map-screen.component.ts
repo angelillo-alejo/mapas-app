@@ -8,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapScreenComponent implements OnInit {
 
-  constructor(private PlacesService: PlacesService ) {}
+  constructor(private placesService: PlacesService ) {}  
+
+  get isUserLocationReady() {
+    return this.placesService.isUserLocationReady;
+  }
+
 
   ngOnInit(): void {
     
